@@ -8,7 +8,6 @@ const BoardAdmin = () => import("./components/BoardAdmin")
 const BoardModerator = () => import("./components/BoardModerator")
 const BoardUser = () => import("./components/BoardUser")
 const AddInfo = () => import("./components/AddInfo")
-const Coffee = () => import("./components/Coffee")
 
 const routes = [
     {
@@ -57,11 +56,6 @@ const routes = [
         name: "addInfo",
         // lazy-loaded
         component: AddInfo,
-    },
-    {
-        path: "/coffee",
-        name: "coffee",
-        component: Coffee
     }
 ];
 
