@@ -44,14 +44,6 @@
           </a>
         </li>
       </div>
-
-      <div v-if="currentUser" class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" @click.prevent="coffee">
-           Coffee
-        </a>
-      </li>
-  </div>
     </nav>
 
     <div class="container">
@@ -86,9 +78,6 @@ export default {
     logOut(){
       this.$store.dispatch('auth/logout');
       this.$router.push('login');
-    },
-    coffee(){
-      this.$router.push('coffee')
     }
   }
 }

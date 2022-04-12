@@ -7,7 +7,6 @@ const Profile = () => import("./components/Profile")
 const BoardAdmin = () => import("./components/BoardAdmin")
 const BoardModerator = () => import("./components/BoardModerator")
 const BoardUser = () => import("./components/BoardUser")
-const AddInfo = () => import("./components/AddInfo")
 
 const routes = [
     {
@@ -50,12 +49,6 @@ const routes = [
         name: "user",
         // lazy-loaded
         component: BoardUser,
-    },
-    {
-        path: "/profile/addInfo",
-        name: "addInfo",
-        // lazy-loaded
-        component: AddInfo,
     }
 ];
 
