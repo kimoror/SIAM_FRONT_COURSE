@@ -21,22 +21,6 @@ class UserService{
     }
     
     addInfo(userInfo){
-        console.log(
-            "name",
-            userInfo.name,
-            "midname",
-            userInfo.middleName,
-            userInfo.surname,
-            userInfo.birthday,
-            userInfo.address,
-            userInfo.status,
-            userInfo.company_id,
-            userInfo.workPosition,
-            userInfo.education,
-            userInfo.school,
-            userInfo.university,
-            userInfo.phoneNumber
-        )
         return axios.post(API_URL+'addInfo', {
             name: userInfo.name,
             middleName: userInfo.middleName,
@@ -63,10 +47,6 @@ class UserService{
                 headers: authHeader(),
                 params: {resumeName: resumeArray.name}
         });
-    }
-
-    getResumeLinks(){
-
     }
 }
 

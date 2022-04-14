@@ -15,6 +15,10 @@ class UserPostService {
     getAllPosts(){
         return axios.get(API_URL + 'getAllPosts', {headers: authHeader()})
     }
+
+    deletePost(id){
+        return axios.delete(API_URL + "delete/" + id, {headers: authHeader()})
+    }
 }
 
 export default new UserPostService();

@@ -20,22 +20,28 @@
           <label class="custom-file-label" for="fileArray">{{resumeName}}</label>
           <input class="custom-file-input" type="file" id="fileArray" name="fileArray" @change="onChange">
         </div>
-        <div class="form-group">
-          <button  type="submit" class="input-group-text">upload</button>
+        <div class="input-group-append">
+          <button  type="submit" class="btn btn-outline-secondary">Upload</button>
         </div>
       </form>
     </div>
-    <div>
-      <Form  @submit="createPost">
-        <textarea id="post-form" v-model="post.text" type="text"></textarea>
-        <button>Создать пост</button>
-      </Form>
-    </div>
-    <div class="card text-center bg-dark mb-3" style="max-width: 18rem" v-for="post in allPosts" :key="post.id">
+    <Form @submit="createPost" class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Ваш пост</span>
+      </div>
+      <textarea id="post-form" v-model="post.text" type="text" class="form-control" aria-label="With textarea"></textarea>
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-outline-secondary">Создать пост</button>
+      </div>
+    </Form>
+    <p style="padding: 3% " class="text-center h3">Мои посты:</p>
+    <div class="card mx-auto text-center bg-light mb-4" style="max-width: 30rem; border-radius: 20px" v-for="post in allPosts" :key="post.id">
       <div class="card-body">
-        <p class="card-text text-white">{{post.text}}</p>
+        <p style="" class="card-text text-dark">{{post.text}}</p>
+        <button class="btn btn-block btn-outline-secondary" style="border-radius: 7px" @click="deletePost(post.id)">Удалить</button>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -55,7 +61,7 @@ export default {
         text:''
       },
       allPosts:[],
-      resumeName: '',
+      resumeName: 'Выберите файл',
       fileArray: [],
     }
   },
@@ -92,6 +98,10 @@ export default {
     uploadResume() {
       UserService.uploadResume(this.fileArray);
       this.resumeName = ''
+    },
+    deletePost(id){
+      UserPostService.deletePost(id)
+      setTimeout(() =>{this.getAllPosts();}, 300)
     }
   }
 }
