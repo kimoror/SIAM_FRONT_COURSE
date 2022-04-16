@@ -48,6 +48,12 @@ class UserService{
                 params: {resumeName: resumeArray.name}
         });
     }
+
+    getInfo(){
+        return axios.get(API_URL + 'getInfo', {
+            headers: authHeader()
+        })
+    }
 }
 
 export default new UserService();
