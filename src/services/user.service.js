@@ -60,6 +60,22 @@ class UserService{
             headers: authHeader()}
         )
     }
+
+    deleteResumeById(resumeName){
+        return axios.delete(API_URL + 'deleteResume/' + resumeName, {headers: authHeader()})
+    }
+
+    getResumeByName(resumeName){
+        return axios.get(API_URL + 'getResume?resumeName=' + resumeName, {headers: authHeader(), responseType: "blob"})
+          .then(response => {
+            const blob = new Blob([response.data], { type: "application/pdf" })
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = resumeName;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        })
+    }
 }
 
 export default new UserService();

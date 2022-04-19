@@ -59,8 +59,16 @@
         <tr>
           <th scope="row">{{allResumes.indexOf(resume) + 1}}</th>
           <td>{{JSON.parse(resume).resumeName}}</td>
-          <td class="text-center"><button class="btn btn-outline-secondary">Скачать</button></td>
-          <td class="text-center"><button class="btn btn-outline-secondary">Удалить</button></td>
+          <td class="text-center">
+            <button class="btn btn-outline-secondary" @click="getResumeFile(JSON.parse(resume).resumeName)">
+              Скачать
+            </button>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-outline-secondary" @click="deleteResumeById(JSON.parse(resume).resumeName)">
+              Удалить
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -113,7 +121,7 @@ export default {
       },
       allPosts:[],
       allResumes: [],
-      resumeName: 'Выберите файл',
+      resumeName: 'Выберите файл pdf',
       fileArray: [],
       userInfo: {
         name: '',
@@ -144,44 +152,59 @@ export default {
     this.getAllPosts()
     this.getResumes()
   },
-  methods:{
-    createPost(){
-      if(this.post.text !== ''){
+  methods: {
+    createPost() {
+      if (this.post.text !== '') {
         UserPostService.createPost(this.post)
         this.post.text = ''
-        setTimeout(() =>{this.getAllPosts();}, 300)
+        setTimeout(() => {
+          this.getAllPosts();
+        }, 300)
       }
 
     },
-    getAllPosts(){
+    getAllPosts() {
       UserPostService.getAllPosts().then(
           response => {
             this.allPosts = response.data.params;
           }
       )
     },
-    onChange (event) {
+    onChange(event) {
       this.fileArray = event.target.files[0]
       this.resumeName = this.fileArray.name
     },
     uploadResume() {
       UserService.uploadResume(this.fileArray);
       this.resumeName = ''
-      setTimeout(() =>{this.getResumes();}, 300)
+      setTimeout(() => {
+        this.getResumes();
+      }, 300)
     },
-    deletePost(id){
+    deletePost(id) {
       UserPostService.deletePost(id)
-      setTimeout(() =>{this.getAllPosts();}, 300)
+      setTimeout(() => {
+        this.getAllPosts();
+      }, 300)
     },
-    getUserInfo(){
+    getUserInfo() {
       UserService.getInfo().then(response => {
         this.userInfo = response.data.params
       })
     },
-    getResumes(){
+    getResumes() {
       UserService.getAllResumes().then(response => {
         this.allResumes = response.data
       })
+    },
+    deleteResumeById(resumeName) {
+      UserService.deleteResumeById(resumeName)
+      setTimeout(() => {
+        this.getResumes();
+      }, 300)
+    },
+    getResumeFile(resumeName) {
+      UserService.getResumeByName(resumeName)
     }
   }
 }
