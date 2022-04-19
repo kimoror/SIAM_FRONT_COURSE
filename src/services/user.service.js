@@ -54,6 +54,12 @@ class UserService{
             headers: authHeader()
         })
     }
+
+    getAllResumes(){
+        return axios.get(API_URL + 'getAllResumeNameByEmail', {
+            headers: authHeader()}
+        )
+    }
 }
 
 export default new UserService();

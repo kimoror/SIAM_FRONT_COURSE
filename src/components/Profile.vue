@@ -1,10 +1,6 @@
 <template>
   <div class="container-fluid">
     <div>
-      <p>
-        <strong>Id:</strong>
-        {{currentUser.id}}
-      </p>
       <p v-if="userInfo.name">
         <strong>Имя:</strong>
         {{userInfo.name}}
@@ -49,10 +45,25 @@
         <strong>Университет:</strong>
         {{userInfo.university}}
       </p>
-      <ul>
-        <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
-      </ul>
     </div>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Номер</th>
+          <th scope="col">Название файла</th>
+          <th class="text-center" scope="col">Скачать</th>
+          <th class="text-center" scope="col">Удалить</th>
+        </tr>
+      </thead>
+      <tbody v-for="resume in allResumes" :key="allResumes.indexOf(resume)">
+        <tr>
+          <th scope="row">{{allResumes.indexOf(resume) + 1}}</th>
+          <td>{{JSON.parse(resume).resumeName}}</td>
+          <td class="text-center"><button class="btn btn-outline-secondary">Скачать</button></td>
+          <td class="text-center"><button class="btn btn-outline-secondary">Удалить</button></td>
+        </tr>
+      </tbody>
+    </table>
     <div>Загрузить резюме:</div>
     <div>
       <form class="input-group mb-3" @submit.prevent="uploadResume">
@@ -101,6 +112,7 @@ export default {
         text:''
       },
       allPosts:[],
+      allResumes: [],
       resumeName: 'Выберите файл',
       fileArray: [],
       userInfo: {
@@ -129,8 +141,8 @@ export default {
       this.$router.push("/login");
     }
     this.getUserInfo()
-    console.log(this.userInfo)
     this.getAllPosts()
+    this.getResumes()
   },
   methods:{
     createPost(){
@@ -155,15 +167,20 @@ export default {
     uploadResume() {
       UserService.uploadResume(this.fileArray);
       this.resumeName = ''
+      setTimeout(() =>{this.getResumes();}, 300)
     },
     deletePost(id){
       UserPostService.deletePost(id)
       setTimeout(() =>{this.getAllPosts();}, 300)
     },
     getUserInfo(){
-      console.log(UserService.getInfo())
       UserService.getInfo().then(response => {
         this.userInfo = response.data.params
+      })
+    },
+    getResumes(){
+      UserService.getAllResumes().then(response => {
+        this.allResumes = response.data
       })
     }
   }
