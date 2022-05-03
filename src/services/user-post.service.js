@@ -7,7 +7,7 @@ class UserPostService {
     createPost(post){
         return axios.post(API_URL + 'create',
             {
-                text: post.text
+                text: post.text,
             },
             {headers: authHeader()});
     }
@@ -18,6 +18,10 @@ class UserPostService {
 
     deletePost(id){
         return axios.delete(API_URL + "delete/" + id, {headers: authHeader()})
+    }
+
+    getLastPosts(){
+        return axios.get(API_URL + 'getPostByCurrentDay', {headers: authHeader()})
     }
 }
 
