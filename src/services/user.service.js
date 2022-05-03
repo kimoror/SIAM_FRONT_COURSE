@@ -40,6 +40,12 @@ class UserService{
         })
     }
 
+    getInfoById(userId){
+        return axios.get(API_URL + 'getInfoById/' + userId,{
+            headers: authHeader()
+        })
+    }
+
     getAllResumes(){
         return axios.get(API_URL + 'getAllResumeNameByEmail', {
             headers: authHeader()}
@@ -60,6 +66,10 @@ class UserService{
             link.click();
             URL.revokeObjectURL(link.href);
         })
+    }
+
+    getLastResumeByEmail(email){
+        return axios.get(API_URL + 'getLastResume/' + email, {responseType: "blob"})
     }
 }
 
