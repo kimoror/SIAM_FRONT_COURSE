@@ -4,9 +4,6 @@ import Login from "@/components/Login";
 import Register from "@/components/Register";
 //lazy loaded
 const Profile = () => import("./components/Profile")
-const BoardAdmin = () => import("./components/BoardAdmin")
-const BoardModerator = () => import("./components/BoardModerator")
-const BoardUser = () => import("./components/BoardUser")
 
 const routes = [
     {
@@ -31,24 +28,6 @@ const routes = [
         name: "profile",
         // lazy-loaded
         component: Profile,
-    },
-    {
-        path: "/admin",
-        name: "admin",
-        // lazy-loaded
-        component: BoardAdmin,
-    },
-    {
-        path: "/mod",
-        name: "moderator",
-        // lazy-loaded
-        component: BoardModerator,
-    },
-    {
-        path: "/user",
-        name: "user",
-        // lazy-loaded
-        component: BoardUser,
     }
 ];
 
