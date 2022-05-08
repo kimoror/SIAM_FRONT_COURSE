@@ -6,6 +6,7 @@
            class="profile-img-card"
            alt="profile-umg.png"
       />
+
       <Form @submit="handleRegister" :validation-schema="schema">
         <div v-if="!successful">
           <div class="form-group">
