@@ -29,9 +29,9 @@
                       <strong>Номер телефона:</strong>
                       {{userInfo.phoneNumber}}
                     </p>
-                    <p v-if="currentUser.email">
+                    <p v-if="userInfo.email">
                       <strong>Email:</strong>
-                      {{currentUser.email}}
+                      {{userInfo.email}}
                     </p>
                     <p v-if="userInfo.address">
                       <strong>Адрес:</strong>
@@ -98,14 +98,10 @@ export default {
         education: '',
         school: '',
         university: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        email:''
       }
     };
-  },
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
   },
   mounted() {
     this.getLastPosts()
@@ -113,8 +109,7 @@ export default {
   methods: {
     getLastPosts(){
       PostService.getLastPosts().then(response => {
-        this.content = response.data.params;
-        console.log(this.content.length)
+        this.content = response.data.params.reverse();
       })
     },
     getUserInfoById(id){
@@ -124,8 +119,8 @@ export default {
     },
     getResumeFile(email) {
       UserService.getLastResumeByEmail(email).catch(function (error){
-        console.log(error)
         alert("У этого пользователя нет резюме")
+        error.content
       }).then(response => {
         const blob = new Blob([response.data], {type: "application/pdf"})
         const link = document.createElement("a");

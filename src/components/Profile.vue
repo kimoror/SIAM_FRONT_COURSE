@@ -166,7 +166,7 @@ export default {
     getAllPosts() {
       UserPostService.getAllPosts().then(
           response => {
-            this.allPosts = response.data.params;
+            this.allPosts = response.data.params.reverse();
           }
       )
     },
