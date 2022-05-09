@@ -4,6 +4,7 @@ import Login from "@/components/Login";
 import Register from "@/components/Register";
 //lazy loaded
 const Profile = () => import("./components/Profile")
+const BoardUser = () => import("./components/BoardUser")
 
 const routes = [
     {
@@ -28,6 +29,12 @@ const routes = [
         name: "profile",
         // lazy-loaded
         component: Profile,
+    },
+    {
+        path: "/user",
+        name: "user",
+        // lazy-loaded
+        component: BoardUser,
     }
 ];
 
