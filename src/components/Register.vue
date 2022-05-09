@@ -85,18 +85,16 @@ export default {
       this.successful=false;
       this.loading=true;
 
+
       this.$store.dispatch("auth/register", user).then(
           (data) => {
-            this.message = data.message;
+            console.log(data.message)
+            this.message = 'User registered successful. Please Login.';
             this.successful = true;
             this.loading = false;
           },
           (error) => {
-            this.message =
-                (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                error.message ||
+            this.message = 'Registration failed. Please change email'
                 error.toString();
             this.successful = false;
             this.loading = false;
